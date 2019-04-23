@@ -1,0 +1,22 @@
+{
+  "require": {
+    "go-swoole/base-server":"dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "GoSwoole\\BaseServer\\Plugins\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "tmtbe",
+      "email": "896369042@qq.com",
+      "homepage": "https://github.com/tmtbe"
+    }
+  ],
+  "name": "go-swoole/autoreload-plugin",
+  "type": "library",
+  "keywords": ["server", "swoole"],
+  "description": "autoreload-plugin",
+  "license": "MIT"
+}
