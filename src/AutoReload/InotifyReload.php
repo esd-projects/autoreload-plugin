@@ -6,7 +6,7 @@
  * Time: 上午9:17
  */
 
-namespace GoSwoole\BaseServer\Plugins\AutoReload;
+namespace GoSwoole\Plugins\AutoReload;
 
 
 use GoSwoole\BaseServer\Server\Process;

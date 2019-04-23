@@ -1,8 +1,7 @@
 <?php
 
 use GoSwoole\BaseServer\ExampleClass\Server\DefaultServer;
-use GoSwoole\BaseServer\Plugins\AutoReload\AutoReloadPlugin;
-use GoSwoole\BaseServer\Plugins\Console\ConsolePlug;
+use GoSwoole\Plugins\AutoReload\AutoReloadPlugin;
 use GoSwoole\BaseServer\Server\Config\PortConfig;
 use GoSwoole\BaseServer\Server\Config\ServerConfig;
 

@@ -6,7 +6,7 @@
  * Time: 13:50
  */
 
-namespace GoSwoole\BaseServer\Plugins\AutoReload;
+namespace GoSwoole\Plugins\AutoReload;
 
 
 use GoSwoole\BaseServer\Server\Message\Message;

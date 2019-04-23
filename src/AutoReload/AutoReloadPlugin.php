@@ -6,7 +6,7 @@
  * Time: 12:17
  */
 
-namespace GoSwoole\BaseServer\Plugins\AutoReload;
+namespace GoSwoole\Plugins\AutoReload;
 
 use GoSwoole\BaseServer\Server\Context;
 use GoSwoole\BaseServer\Server\Exception\ConfigException;
