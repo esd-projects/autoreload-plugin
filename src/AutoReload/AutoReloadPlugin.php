@@ -21,6 +21,25 @@ class AutoReloadPlugin extends AbstractPlugin
      * @var InotifyReload
      */
     protected $inotifyReload;
+    /**
+     * @var AutoReloadConfig
+     */
+    private $autoReloadConfig;
+
+    /**
+     * AutoReloadPlugin constructor.
+     * @param AutoReloadConfig|null $autoReloadConfig
+     * @throws \DI\DependencyException
+     * @throws \ReflectionException
+     */
+    public function __construct(?AutoReloadConfig $autoReloadConfig = null)
+    {
+        parent::__construct();
+        if ($autoReloadConfig == null) {
+            $autoReloadConfig = new AutoReloadConfig();
+        }
+        $this->autoReloadConfig = $autoReloadConfig;
+    }
 
     /**
      * 获取插件名字
@@ -35,15 +54,16 @@ class AutoReloadPlugin extends AbstractPlugin
      * 在服务启动前
      * @param Context $context
      * @return mixed
-     * @throws \GoSwoole\BaseServer\Server\Exception\ConfigException
+     * @throws ConfigException
+     * @throws \GoSwoole\BaseServer\Exception
+     * @throws \ReflectionException
      */
     public function beforeServerStart(Context $context)
     {
-        //有没有设置RootDIR
-        $rootDir = $context->getServer()->getServerConfig()->getRootDir();
-        if (empty($rootDir)) {
-            throw new ConfigException("没有配置rootDir");
+        if ($this->autoReloadConfig->getMonitorDir() == null) {
+            $this->autoReloadConfig->setMonitorDir($context->getServer()->getServerConfig()->getSrcDir());
         }
+        $this->autoReloadConfig->merge();
         //添加一个helper进程
         $context->getServer()->addProcess(self::processName, HelperReloadProcess::class, self::processGroupName);
         return;
@@ -57,7 +77,7 @@ class AutoReloadPlugin extends AbstractPlugin
     public function beforeProcessStart(Context $context)
     {
         if ($context->getServer()->getProcessManager()->getCurrentProcess()->getProcessName() === self::processName) {
-            $this->inotifyReload = new InotifyReload($context->getDeepByClassName(Logger::class), $context->getServer());
+            $this->inotifyReload = new InotifyReload($context->getDeepByClassName(Logger::class), $context->getServer(), $this->autoReloadConfig);
         }
         $this->ready();
     }

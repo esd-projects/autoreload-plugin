@@ -25,16 +25,19 @@ class InotifyReload
      * @var Logger
      */
     protected $log;
-    public function __construct(Logger $log,Server $server)
+
+    public function __construct(Logger $log, Server $server, AutoReloadConfig $autoReloadConfig)
     {
         $this->log = $log;
-        $this->log->info("已开启代码热重载");
-        $this->server = $server;
-        $this->monitor_dir = realpath($this->server->getServerConfig()->getRootDir());
-        if (!extension_loaded('inotify')) {
-            addTimerAfter(1000, [$this, 'unUseInotify']);
-        } else {
-            $this->useInotify();
+        if ($autoReloadConfig->isEnable()) {
+            $this->log->info("已开启代码热重载");
+            $this->server = $server;
+            $this->monitor_dir = realpath($autoReloadConfig->getMonitorDir());
+            if (!extension_loaded('inotify')) {
+                addTimerAfter(1000, [$this, 'unUseInotify']);
+            } else {
+                $this->useInotify();
+            }
         }
     }
 
