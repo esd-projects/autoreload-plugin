@@ -59,9 +59,7 @@ class InotifyReload
             // 把文件加入inotify监控，这里只监控了IN_MODIFY文件更新事件
             $wd = inotify_add_watch($this->inotifyFd, $file, IN_MODIFY);
             $monitor_files[$wd] = $file;
-
         }
-
         // 监控inotify句柄可读事件
         swoole_event_add($this->inotifyFd, function ($inotify_fd) {
             global $monitor_files;
@@ -119,4 +117,3 @@ class InotifyReload
         });
     }
 }
-
