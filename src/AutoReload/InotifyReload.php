@@ -6,11 +6,11 @@
  * Time: 上午9:17
  */
 
-namespace GoSwoole\Plugins\AutoReload;
+namespace ESD\Plugins\AutoReload;
 
 
-use GoSwoole\BaseServer\Server\Process;
-use GoSwoole\BaseServer\Server\Server;
+use ESD\BaseServer\Server\Process;
+use ESD\BaseServer\Server\Server;
 use Monolog\Logger;
 
 class InotifyReload

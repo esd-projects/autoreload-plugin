@@ -6,11 +6,11 @@
  * Time: 13:50
  */
 
-namespace GoSwoole\Plugins\AutoReload;
+namespace ESD\Plugins\AutoReload;
 
 
-use GoSwoole\BaseServer\Server\Message\Message;
-use GoSwoole\BaseServer\Server\Process;
+use ESD\BaseServer\Server\Message\Message;
+use ESD\BaseServer\Server\Process;
 
 class HelperReloadProcess extends Process
 {

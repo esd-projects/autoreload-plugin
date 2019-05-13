@@ -6,11 +6,11 @@
  * Time: 12:17
  */
 
-namespace GoSwoole\Plugins\AutoReload;
+namespace ESD\Plugins\AutoReload;
 
-use GoSwoole\BaseServer\Server\Context;
-use GoSwoole\BaseServer\Server\Exception\ConfigException;
-use GoSwoole\BaseServer\Server\Plugin\AbstractPlugin;
+use ESD\BaseServer\Server\Context;
+use ESD\BaseServer\Server\Exception\ConfigException;
+use ESD\BaseServer\Server\Plugin\AbstractPlugin;
 use Monolog\Logger;
 
 class AutoReloadPlugin extends AbstractPlugin
@@ -55,7 +55,7 @@ class AutoReloadPlugin extends AbstractPlugin
      * @param Context $context
      * @return mixed
      * @throws ConfigException
-     * @throws \GoSwoole\BaseServer\Exception
+     * @throws \ESD\BaseServer\Exception
      * @throws \ReflectionException
      */
     public function beforeServerStart(Context $context)

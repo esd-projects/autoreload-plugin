@@ -6,10 +6,10 @@
  * Time: 16:58
  */
 
-namespace GoSwoole\Plugins\AutoReload;
+namespace ESD\Plugins\AutoReload;
 
 
-use GoSwoole\BaseServer\Plugins\Config\BaseConfig;
+use ESD\BaseServer\Plugins\Config\BaseConfig;
 
 class AutoReloadConfig extends BaseConfig
 {
