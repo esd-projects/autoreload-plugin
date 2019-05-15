@@ -14,6 +14,12 @@
       "homepage": "https://github.com/tmtbe"
     }
   ],
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.laravel-china.org"
+    }
+  },
   "name": "esd/autoreload-plugin",
   "type": "library",
   "keywords": ["server", "swoole"],

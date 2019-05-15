@@ -9,9 +9,9 @@
 namespace ESD\Plugins\AutoReload;
 
 
+use ESD\BaseServer\Plugins\Logger\Logger;
 use ESD\BaseServer\Server\Process;
 use ESD\BaseServer\Server\Server;
-use Monolog\Logger;
 
 class InotifyReload
 {

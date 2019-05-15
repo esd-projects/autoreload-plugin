@@ -8,10 +8,10 @@
 
 namespace ESD\Plugins\AutoReload;
 
+use ESD\BaseServer\Plugins\Logger\Logger;
 use ESD\BaseServer\Server\Context;
 use ESD\BaseServer\Server\Exception\ConfigException;
 use ESD\BaseServer\Server\Plugin\AbstractPlugin;
-use Monolog\Logger;
 
 class AutoReloadPlugin extends AbstractPlugin
 {
