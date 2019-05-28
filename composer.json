@@ -1,6 +1,9 @@
 {
   "require": {
-    "esd/base-server": "~0.1"
+    "esd/esd-core": "~0.1"
+  },
+  "require-dev": {
+    "esd/esd-co-server": "~0.1"
   },
   "autoload": {
     "psr-4": {

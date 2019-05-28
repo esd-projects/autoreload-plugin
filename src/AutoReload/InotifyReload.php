@@ -8,30 +8,26 @@
 
 namespace ESD\Plugins\AutoReload;
 
-
-use ESD\BaseServer\Plugins\Logger\Logger;
-use ESD\BaseServer\Server\Process;
-use ESD\BaseServer\Server\Server;
+use ESD\Core\Plugins\Logger\GetLogger;
+use ESD\Core\Server\Process\Process;
+use ESD\Core\Server\Server;
 
 class InotifyReload
 {
+    use GetLogger;
     public $monitor_dir;
     public $inotifyFd;
-    /**
-     * @var Server
-     */
-    protected $server;
-    /**
-     * @var Logger
-     */
-    protected $log;
 
-    public function __construct(Logger $log, Server $server, AutoReloadConfig $autoReloadConfig)
+    /**
+     * InotifyReload constructor.
+     * @param AutoReloadConfig $autoReloadConfig
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     */
+    public function __construct(AutoReloadConfig $autoReloadConfig)
     {
-        $this->log = $log;
         if ($autoReloadConfig->isEnable()) {
-            $this->log->info("已开启代码热重载");
-            $this->server = $server;
+            $this->info("已开启代码热重载");
             $this->monitor_dir = realpath($autoReloadConfig->getMonitorDir());
             if (!extension_loaded('inotify')) {
                 addTimerAfter(1000, [$this, 'unUseInotify']);
@@ -40,6 +36,7 @@ class InotifyReload
             }
         }
     }
+
 
     public function useInotify()
     {
@@ -73,7 +70,7 @@ class InotifyReload
                         continue;
                     }
                     $file = $monitor_files[$ev['wd']];
-                    $this->log->info("RELOAD $file update");
+                    $this->info("RELOAD $file update");
                     unset($monitor_files[$ev['wd']]);
                     // 需要把文件重新加入监控
                     if (is_file($file)) {
@@ -81,16 +78,16 @@ class InotifyReload
                         $monitor_files[$wd] = $file;
                     }
                 }
-                $this->server->reload();
+                Server::$instance->reload();
             }
         }, null, SWOOLE_EVENT_READ);
     }
 
     public function unUseInotify()
     {
-        $this->log->warn("非inotify模式，性能极低，不建议在正式环境启用。请安装inotify扩展");
+        $this->warn("非inotify模式，性能极低，不建议在正式环境启用。请安装inotify扩展");
         if (Process::isDarwin()) {
-            $this->log->warn("mac开启auto_reload可能会导致cpu占用过高。");
+            $this->warn("mac开启auto_reload可能会导致cpu占用过高。");
         }
         addTimerTick(1, function () {
             global $last_mtime;
@@ -107,9 +104,9 @@ class InotifyReload
                 }
                 // check mtime
                 if ($last_mtime < $file->getMTime()) {
-                    $this->log->info("RELOAD $file update");
+                    $this->info("RELOAD $file update");
                     //reload
-                    $this->server->reload();
+                    Server::$instance->reload();
                     $last_mtime = $file->getMTime();
                     break;
                 }

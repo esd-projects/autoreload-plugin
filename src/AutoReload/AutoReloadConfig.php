@@ -8,8 +8,7 @@
 
 namespace ESD\Plugins\AutoReload;
 
-
-use ESD\BaseServer\Plugins\Config\BaseConfig;
+use ESD\Core\Plugins\Config\BaseConfig;
 
 class AutoReloadConfig extends BaseConfig
 {
