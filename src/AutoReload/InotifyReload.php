@@ -105,6 +105,7 @@ class InotifyReload
                 }
                 // check mtime
                 if ($last_mtime < $file->getMTime()) {
+                    $this->delCache($file);
                     $this->info("RELOAD $file update");
                     //reload
                     Server::$instance->reload();
