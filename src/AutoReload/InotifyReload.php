@@ -70,7 +70,6 @@ class InotifyReload
                         continue;
                     }
                     $file = $monitor_files[$ev['wd']];
-                    $this->delCache($file);
                     $this->info("RELOAD $file update");
                     unset($monitor_files[$ev['wd']]);
                     // 需要把文件重新加入监控
@@ -105,7 +104,6 @@ class InotifyReload
                 }
                 // check mtime
                 if ($last_mtime < $file->getMTime()) {
-                    $this->delCache($file);
                     $this->info("RELOAD $file update");
                     //reload
                     Server::$instance->reload();
@@ -114,15 +112,5 @@ class InotifyReload
                 }
             }
         });
-    }
-
-    private function delCache($file)
-    {
-        $cacheDir = Server::$instance->getServerConfig()->getCacheDir() . "/aop";
-        $rootDir = realpath(Server::$instance->getServerConfig()->getRootDir());
-        $aopFile = str_replace($rootDir, $cacheDir, $file);
-        if (is_file($aopFile)) {
-            unlink($aopFile);
-        }
     }
 }
